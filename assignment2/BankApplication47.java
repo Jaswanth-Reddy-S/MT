@@ -98,17 +98,21 @@ public class BankApplication47 {
 		if(target==-1)
 			System.out.println("No such user exist");
 	}
-	public static void displayUsersWithAddress(List<BankApplication47> users , String address) {
-		int target=-1;
+	public static void sortUsersBasedOnAddress(List<BankApplication47> users ) {
+		Collections.sort(users,new Comparator<BankApplication47>()
+		{
+
+			@Override
+			public int compare(BankApplication47 o1, BankApplication47 o2) {
+				return o1.address.compareToIgnoreCase(o2.address);
+			}
+	
+		});
 		for(int i=0;i<users.size();i++)
-			if(users.get(i).address.equalsIgnoreCase(address))
-				{
-				target =i;
-				System.out.println(users.get(target));
-				}
-		if(target==-1)
-			System.out.println("The user with "+address + " does'nt exist ");
-	}
+		{
+			System.out.println(users.get(i));
+		}
+}
 	public static void sortBasedOnId(List<BankApplication47> users) {
 		Collections.sort(users,new Comparator<BankApplication47>()
 				{
@@ -196,9 +200,8 @@ public class BankApplication47 {
 				displayUserWithName(users, name1);
 				System.out.println("Displaying users with non-zero account balance :");
 				displayUsersWithNonZeroBalance(users);
-				System.out.println("Enter address to display user :");
-				String address1 = sc.next();
-				displayUsersWithAddress(users, address1);
+				System.out.println("Sorting users based on address :");
+				sortUsersBasedOnAddress(users);
 				System.out.println("Sorting users based on account Id :");
 				sortBasedOnId(users);
 				break;
